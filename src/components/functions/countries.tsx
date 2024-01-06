@@ -11,7 +11,12 @@ interface Country {
     // Add other properties as needed based on your API response
 }
 
-const Countries = () => {
+interface CountryProps
+{
+    onAdd: (selectedCountry:Country) => void;
+}
+
+const Countries = (props:CountryProps) => {
     const [country, setCountry] = useState<Country[]>([]);
 
     useEffect(() => {
@@ -19,12 +24,16 @@ const Countries = () => {
             .then(res => res.json())
             .then((data: Country[]) => {
                 setCountry(data);
-                console.log(data); // Log the fetched data to see its structure
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-    }, []);
+    }, [] );
+    
+    const handleSelectedCountry = ( selectedCountry: Country ) =>
+    {
+        props.onAdd(selectedCountry)
+    }
 
     return (
         <div>
@@ -42,7 +51,7 @@ const Countries = () => {
                         currency={''}
                         continent={c.continents ? c.continents[ 0 ] : "N/A"}
                         map={c.maps ? c.maps.googleMaps : null}
-                    />
+                        onAdd={()=> handleSelectedCountry(c)} />
                 ) )}
             </div>
         </div>
