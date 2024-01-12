@@ -17,6 +17,11 @@ function App() {
     searchResults: [] as any[],
   });
 
+  // console.log( state.selectedCountries, `type of state ${typeof state.selectedCountries}`, Array.isArray(state.selectedCountries) )
+  // console.log( state.searchResults, `type of sate.search result ${ typeof state.searchResults }` )
+  
+  console.log(state, `type of state ${typeof state}`, Array.isArray(state))
+  
   useEffect(() => {
     const fetchData = async () =>
     {
@@ -53,6 +58,7 @@ function App() {
     console.log( value, countryFilter )
     setState((prev) => ({ ...prev, searchResults: countryFilter }));
   };
+
 
   return (
     <div className="flex flex-col items-center space-y-5">
